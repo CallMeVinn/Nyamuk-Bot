@@ -8,10 +8,11 @@ module.exports = {
 
         const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
         const rawContent = message.content.toLowerCase();
-        Config.prefix = rawContent.match(prefixMention) ? rawContent.match(prefixMention)[0] : Config.prefix;
-        if (rawContent.indexOf(Config.prefix.toLowerCase()) !== 0) return;
 
-        const args = message.content.trim().slice(Config.prefix.length).split(/ +/g);
+        const prefix = rawContent.match(prefixMention) ? rawContent.match(prefixMention)[0] : Config.prefix;
+        if (rawContent.indexOf(prefix.toLowerCase()) !== 0) return;
+
+        const args = message.content.trim().slice(prefix.length).split(/ +/g);
         const command = args.shift().toLowerCase();
         const commands = client.commands.get(command) || client.commands.find(any => any.aliases && any.aliases.includes(command));
 
