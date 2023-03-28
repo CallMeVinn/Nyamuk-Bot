@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Mengirim latensi bot.'),
 
     execute: function(ci) {
-        ci.reply('...').then(msg => {
+        ci.send('...').then(msg => {
             msg.edit(`Pong! \`${ci.createdTimestamp-msg.createdTimestamp}\` ms.`);
         })
     }
