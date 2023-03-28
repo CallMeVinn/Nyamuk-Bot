@@ -1,0 +1,23 @@
+{
+  "name": "nyamuk-bot",
+  "version": "1.0.0",
+  "description": "Bot Discord server Sarang Nyamuk",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CallMeVinn/Nyamuk-Bot.git"
+  },
+  "author": "VinnDev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/CallMeVinn/Nyamuk-Bot/issues"
+  },
+  "homepage": "https://github.com/CallMeVinn/Nyamuk-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.8.0",
+    "mongoose": "^7.0.3"
+  }
+}
