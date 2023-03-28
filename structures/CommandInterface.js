@@ -71,3 +71,5 @@ class CommandInterface {
         return false;
     };
 };
+
+module.exports = CommandInterface;

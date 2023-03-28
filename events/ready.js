@@ -5,8 +5,9 @@ module.exports = {
     once: true,
     execute: (client) => {
         client.user.setActivity({
-            name: `${Config.prefix}help | /help`,
-            type: ActivityType.Listening
+            name: "Sarang Nyamuk",
+            url: Config.serverLink,
+            type: ActivityType.Streaming
         });
 
         console.log(`[ClientReady] Logged in as ${client.user.tag}`);
