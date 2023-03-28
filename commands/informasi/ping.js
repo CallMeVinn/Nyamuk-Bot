@@ -7,7 +7,7 @@ module.exports = {
 
     execute: function(ci) {
         ci.send('...').then(msg => {
-            msg.edit(`Pong! \`${ci.createdTimestamp-msg.createdTimestamp}\` ms.`);
+            msg.edit(`Pong! \`${msg.createdTimestamp-ci.createdTimestamp}\` ms.`);
         })
     }
 }
