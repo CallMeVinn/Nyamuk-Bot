@@ -10,7 +10,7 @@ module.exports = {
         if (!p.args.length) return p.message.react("❌");
 
         const code = p.args.join(" ");
-        const embed = EmbedBuilder({ color: Discord.Colors.Blue });
+        const embed = new EmbedBuilder({ color: Discord.Colors.Blue });
 
         try {
 
