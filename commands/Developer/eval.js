@@ -1,11 +1,11 @@
-const { EmbedBuilder, SlashCommandBuilder }, Discord = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js'),
+Discord = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("eval")
         .setDescription("Evaluate code for developer testing"),
 
-    aliases: ['ev'],
     execute: async function(p) {
         if (!p.args.length) return p.message.react("❌");
 
