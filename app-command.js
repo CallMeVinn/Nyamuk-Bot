@@ -47,14 +47,17 @@ async function registerGlobal(regist = true) {
 
 async function registerGuild(guildId, regist = true) {
     console.log('[ApplicationCommand]', `Start refreshing 'GUILD: ${guildId || GuildId}' application (/) commands.`);
+    const privCheck = arguments.find(x => x.match(/(private)/g)) ? arguments.find(x => x.match(/(private)/g)).split("=")[1] : false || argv.find(x => x.match(/(private)/g)) ? argv.find(x => x.match(/(private)/g)).split("=")[1] : false || 'false';
+
     readdirSync("./commands")
+        .filter(x => privCheck !== 'true' && x != 'Pengembang')
         .forEach(directory => {
             for (const file of readdirSync(`./commands/${directory}`)) {
                 const { data } = require(`./commands/${directory}/${file}`);
                 _commands.set(data.name, data.toJSON());
             };
         });
-    console.log('[ApplicationCommand]', `Stored total ${_commands.size} commands.`);
+    console.log('[ApplicationCommand]', `Stored total ${_commands.size} commands.${privCheck === 'true' ? ' (Includes Private)':''}`);
 
     let commands = _commands.map(data => data);
     const rest = new REST({ version: 10 }).setToken(Token);

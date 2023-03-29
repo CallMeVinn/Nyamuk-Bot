@@ -17,7 +17,7 @@ module.exports = {
 
             const params = new ParamInterface(interaction, interaction.options.data);
 
-            if (command.category === "Pengembang" && interaction.user.id !== process.env.DeveloperId) {
+            if (command.category === "Pengembang" && interaction.user.id !== Config.developerId) {
                 embed.setDescription("Kamu tidak bisa memakai perintah ini!");
 
                 interaction.reply({ embeds: [embed], ephemeral: true })

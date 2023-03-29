@@ -5,7 +5,9 @@ module.exports = {
         .setName('ping')
         .setDescription('Mengirim latensi bot.'),
 
-    execute: function(p) {
+    execute: async function(p) {
+        if (p.isInteraction) p.createdTimestamp = await Date.now();
+
         p.reply('...').then(msg => {
             msg.edit(`Pong! \`${msg.createdTimestamp-p.createdTimestamp}\` ms.`);
         })
