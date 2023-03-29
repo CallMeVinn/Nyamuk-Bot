@@ -1,4 +1,4 @@
-const { EmbedBuilder, Events } = require('discord.js');ini
+const { EmbedBuilder, Events } = require('discord.js');
 
 module.exports = {
     name: Events.GuildMemberAdd,
