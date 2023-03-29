@@ -2,7 +2,10 @@ const { EmbedBuilder, Events } = require('discord.js');
 
 module.exports = {
     name: Events.GuildMemberAdd,
-    execute: async (client, member) => {
+
+    execute: async function(client, member) {
+        if (member.guildId !== process.env.GuildId) return;
+
         let username = member.user.username.length > 13 ? member.user.username.substr(0, 10)+'...' : member.user.username;
         username += '#';
         username += member.user.discriminator;

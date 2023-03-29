@@ -3,7 +3,8 @@ const { ActivityType, Events } = require("discord.js");
 module.exports = {
     name: Events.ClientReady,
     once: true,
-    execute: (client) => {
+
+    execute: function(client) {
         client.user.setActivity({
             name: "Sarang Nyamuk",
             url: Config.serverLink,

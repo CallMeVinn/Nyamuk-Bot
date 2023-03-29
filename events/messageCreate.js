@@ -3,7 +3,8 @@ const ParamInterface = require('../structures/ParamInterface');
 
 module.exports = {
     name: Events.MessageCreate,
-    execute: (client, message) => {
+
+    execute: async function(client, message) {
         if (message.author.bot) return;
 
         const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
@@ -22,15 +23,15 @@ module.exports = {
 
         const embed = new EmbedBuilder({ color: 0xFF0000 });
 
-        if (commands.category === "Developer" && message.author.id !== Config.developerId) return;
+        if (commands.category === "Pengembang" && message.author.id !== Config.developerId) return;
 
-        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return params.author.send({ embeds: [embed.setDescription(`I don't have permissions \`SendMessages\` at channel ${message.channel.toString()} in server **${message.guild.name}**`)] }).catch(o_O => void 0);
-        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return params.reply(`I need permissions \`EmbedLinks\` to execute my commands!`);
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return message.author.send({ embeds: [embed.setDescription(`I don't have permissions \`SendMessages\` at channel ${message.channel.toString()} in server **${message.guild.name}**`)] }).catch(o_O => void 0);
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return message.reply(`I need permissions \`EmbedLinks\` to execute my commands!`);
 
-        const targetCooldown = `${params.author.id}_${commands.data.name}`;
+        const targetCooldown = `${message.author.id}_${commands.data.name}_m`;
         if (client.cooldowns.has(targetCooldown)) {
             const current = client.cooldowns.get(targetCooldown);
-            params.reply({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>`, ephemeral: true });
+            message.reply({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>` }).then(msg => setTimeout(() => msg.delete(), (current-Date.now())))
             return;
         }
 
@@ -41,7 +42,7 @@ module.exports = {
             commands.execute(params);
         }
         catch(error) {
-            params.reply({ embeds: [embed.setDescription(`**❌ |** Aku tidak menjalankan perintah ini. Karena: \`${error.message}\``)] });
+            message.reply({ embeds: [embed.setDescription(`**❌ |** Aku tidak menjalankan perintah ini. Karena: \`${error.message}\``)] });
         }
     }
 }

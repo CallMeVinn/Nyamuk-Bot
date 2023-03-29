@@ -4,7 +4,9 @@
   "description": "Bot Discord server Sarang Nyamuk",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy:global": "node app-command.js global",
+    "deploy:guild": "node app-command.js guild"
   },
   "repository": {
     "type": "git",
