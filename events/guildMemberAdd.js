@@ -4,6 +4,7 @@ module.exports = {
     name: Events.GuildMemberAdd,
     execute: async (client, member) => {
         let username = member.user.username.length > 13 ? member.user.username.substr(0, 10)+'...' : member.user.username;
+        username += '#';
         username += member.user.discriminator;
 
         const welcomeImage = await WeebyAPI.custom.greeting({
