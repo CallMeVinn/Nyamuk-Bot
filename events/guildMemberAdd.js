@@ -6,7 +6,7 @@ module.exports = {
         let username = member.user.username.length > 13 ? member.user.username.substr(0, 10)+'...' : member.user.username;
         username += member.user.discriminator;
 
-        const welcomeImage = WeebyAPI.custom.greeting({
+        const welcomeImage = await WeebyAPI.custom.greeting({
             icon: member.user.displayAvatarURL({ dynamic: true, size: 1024, }).replace('.webp', '.png'),
             background: 'https://media.discordapp.net/attachments/812381804405194852/1090634509583650918/bg_transparent.png',
             name: username,
