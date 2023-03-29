@@ -31,7 +31,7 @@ module.exports = {
                 return;
             }
 
-            cooldown.set(targetCooldown, (Date.now() + command.cooldown));
+            client.cooldowns.set(targetCooldown, (Date.now() + command.cooldown));
             setTimeout(() => client.cooldowns.delete(targetCooldown), command.cooldown);
 
             try {
