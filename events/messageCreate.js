@@ -12,7 +12,7 @@ module.exports = {
         const prefix = rawContent.match(prefixMention) ? rawContent.match(prefixMention)[0] : Config.prefix;
         if (!rawContent.startsWith(prefix.toLowerCase())) return;
 
-        const args = message.content.trim().slice(prefix.length).split(/ +/g);
+        const args = message.content.slice(prefix.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase();
         const commands = client.commands.get(command) || client.commands.find(any => any.aliases && any.aliases.includes(command));
 

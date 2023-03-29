@@ -9,8 +9,8 @@ module.exports = {
             .setTitle("𝐖𝐄𝐋𝐂𝐎𝐌𝐄 𝐓𝐎 𝐒𝐀𝐑𝐀𝐍𝐆 𝐍𝐘𝐀𝐌𝐔𝐊")
             .setDescription(`Selamat bergabung menjadi keluarga baru kami. Kamu member ke **${member.guild.memberCount}** di server ini.`)
             .addFields({
-                name: '⁉️ Verifikasi',
-                value:`> Baca & Patuhi: <#${Config.channels.rules}>\n> Isi biodata (Wajib): <#${Config.channels.biodata}>`
+                name: 'Verifikasi ⁉️',
+                value:`> Baca: <#${Config.channels.rules}>\n> Isi Biodata: <#${Config.channels.biodata}>`
             })
             .setThumbnail(member.guild.iconURL({ dynamic: true, size: 1024 }));
 
