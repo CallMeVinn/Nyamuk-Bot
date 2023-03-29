@@ -5,10 +5,15 @@ exports.load = (client) => {
         .forEach(directory => {
             for (const file of readdirSync(`./commands/${directory}`)) {
                 const commands = require(`../commands/${directory}/${file}`);
-                commands.aliases = commands.aliases ?? [];
                 commands.category = directory;
-                commands.cooldown = commands.cooldown ?? 3000;
+                commandInterface(commands);
                 client.commands.set(commands.data.name, commands);
             };
         });
 };
+
+function commandInterface(commands) {
+    commands.aliases = commands.aliases ?? [];
+    commands.cooldown = commands.cooldown ?? 3000;
+    return commands;
+}

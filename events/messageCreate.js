@@ -1,5 +1,5 @@
 const { Events, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
-const BotInterface = require('../structures/BotInterface');
+const ParamInterface = require('../structures/ParamInterface');
 
 module.exports = {
     name: Events.MessageCreate,
@@ -10,7 +10,7 @@ module.exports = {
         const rawContent = message.content.toLowerCase();
 
         const prefix = rawContent.match(prefixMention) ? rawContent.match(prefixMention)[0] : Config.prefix;
-        if (rawContent.indexOf(prefix.toLowerCase()) !== 0) return;
+        if (!rawContent.startsWith(prefix.toLowerCase())) return;
 
         const args = message.content.trim().slice(prefix.length).split(/ +/g);
         const command = args.shift().toLowerCase();
@@ -18,19 +18,19 @@ module.exports = {
 
         if (!commands) return;
 
-        const botInterface = new BotInterface(message, args);
+        const params = new ParamInterface(message, args);
 
         const embed = new EmbedBuilder({ color: 0xFF0000 });
 
         if (commands.category === "Developer" && message.author.id !== Config.developerId) return;
 
-        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return message.author.send({ embeds: [embed.setDescription(`I don't have permissions \`SendMessages\` at channel ${message.channel.toString()} in server **${message.guild.name}**`)] }).catch(o_O => void 0);
-        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return botInterface.send(`I need permissions \`EmbedLinks\` to execute my commands!`);
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return params.author.send({ embeds: [embed.setDescription(`I don't have permissions \`SendMessages\` at channel ${message.channel.toString()} in server **${message.guild.name}**`)] }).catch(o_O => void 0);
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return params.reply(`I need permissions \`EmbedLinks\` to execute my commands!`);
 
-        const targetCooldown = `${botInterface.author.id}_${commands.data.name}`;
+        const targetCooldown = `${params.author.id}_${commands.data.name}`;
         if (client.cooldowns.has(targetCooldown)) {
             const current = client.cooldowns.get(targetCooldown);
-            botInterface.send({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>`, ephemeral: true });
+            params.reply({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>`, ephemeral: true });
             return;
         }
 
@@ -38,10 +38,10 @@ module.exports = {
         setTimeout(() => client.cooldowns.delete(targetCooldown), commands.cooldown);
 
         try {
-            commands.execute(botInterface);
+            commands.execute(params);
         }
         catch(error) {
-            message.reply({ embeds: [embed.setDescription(`**❌ |** Aku tidak menjalankan perintah ini. Karena: \`${error.message}\``)] });
+            params.reply({ embeds: [embed.setDescription(`**❌ |** Aku tidak menjalankan perintah ini. Karena: \`${error.message}\``)] });
         }
     }
 }

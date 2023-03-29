@@ -1,6 +1,6 @@
 const { CommandInteraction, Message } = require('discord.js');
 
-class BotInterface {
+class ParamInterface {
     constructor(context, args) {
         this.context = context;
         this.isInteraction = context instanceof CommandInteraction;
@@ -27,6 +27,15 @@ class BotInterface {
         }
     }
     async send(payload) {
+        if (this.isInteraction) {
+            this.msg = this.interaction.channel.send(payload);
+            return this.msg;
+        } else {
+            this.msg = this.message.channel.send(payload);
+            return this.msg;
+        }
+    }
+    async reply(payload) {
         if (this.isInteraction) {
             this.msg = this.interaction.reply(payload);
             return this.msg;
@@ -72,4 +81,4 @@ class BotInterface {
     };
 };
 
-module.exports = BotInterface;
+module.exports = ParamInterface;
