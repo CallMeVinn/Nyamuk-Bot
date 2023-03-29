@@ -1,21 +1,21 @@
 const { CommandInteraction, Message } = require('discord.js');
 
-class CommandInterface {
-    constructor(ci, args) {
-        this.ci = ci;
-        this.isInteraction = ci instanceof CommandInteraction;
-        this.interaction = this.isInteraction ? ci : null;
-        this.message = this.isInteraction ? null : ci;
-        this.id = ci.id;
-        this.channelId = ci.channelId ?? ci.channel.id;
-        this.guildId = ci.guildId ?? ci.guild.id;
-        this.client = ci.client;
-        this.author = ci instanceof Message ? ci.author : ci.user;
-        this.channel = ci.channel;
-        this.guild = ci.guild;
-        this.createdAt = ci.createdAt;
-        this.createdTimestamp = ci.createdTimestamp;
-        this.member = ci.member;
+class BotInterface {
+    constructor(context, args) {
+        this.context = context;
+        this.isInteraction = context instanceof CommandInteraction;
+        this.interaction = this.isInteraction ? context : null;
+        this.message = this.isInteraction ? null : context;
+        this.id = context.id;
+        this.channelId = context.channelId ?? context.channel.id;
+        this.guildId = context.guildId ?? context.guild.id;
+        this.client = context.client;
+        this.author = context instanceof Message ? context.author : context.user;
+        this.channel = context.channel;
+        this.guild = context.guild;
+        this.createdAt = context.createdAt;
+        this.createdTimestamp = context.createdTimestamp;
+        this.member = context.member;
         this.setArgs(args);
     }
     setArgs(args) {
@@ -72,4 +72,4 @@ class CommandInterface {
     };
 };
 
-module.exports = CommandInterface;
+module.exports = BotInterface;

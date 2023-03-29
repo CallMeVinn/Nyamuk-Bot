@@ -1,5 +1,5 @@
 const { Events, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
-const CommandInterface = require('../structures/CommandInterface');
+const BotInterface = require('../structures/BotInterface');
 
 module.exports = {
     name: Events.MessageCreate,
@@ -18,19 +18,19 @@ module.exports = {
 
         if (!commands) return;
 
-        const commandInterface = new CommandInterface(message, args);
+        const botInterface = new BotInterface(message, args);
 
         const embed = new EmbedBuilder({ color: 0xFF0000 });
 
         if (commands.category === "Developer" && message.author.id !== Config.developerId) return;
 
         if (!message.guild.members.me.permissions.has(PermissionFlagsBits.SendMessages)) return message.author.send({ embeds: [embed.setDescription(`I don't have permissions \`SendMessages\` at channel ${message.channel.toString()} in server **${message.guild.name}**`)] }).catch(o_O => void 0);
-        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return commandInterface.send(`I need permissions \`EmbedLinks\` to execute my commands!`);
+        if (!message.guild.members.me.permissions.has(PermissionFlagsBits.EmbedLinks)) return botInterface.send(`I need permissions \`EmbedLinks\` to execute my commands!`);
 
-        const targetCooldown = `${commandInterface.author.id}_${commands.data.name}`;
+        const targetCooldown = `${botInterface.author.id}_${commands.data.name}`;
         if (client.cooldowns.has(targetCooldown)) {
             const current = client.cooldowns.get(targetCooldown);
-            commandInterface.send({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>`, ephemeral: true });
+            botInterface.send({ content: `Kamu terlalu cepat menggunakan perintah ini. Coba lagi <t:${Math.round(current / 1000)}:R>`, ephemeral: true });
             return;
         }
 
@@ -38,7 +38,7 @@ module.exports = {
         setTimeout(() => client.cooldowns.delete(targetCooldown), commands.cooldown);
 
         try {
-            commands.execute(commandInterface);
+            commands.execute(botInterface);
         }
         catch(error) {
             message.reply({ embeds: [embed.setDescription(`**❌ |** Aku tidak menjalankan perintah ini. Karena: \`${error.message}\``)] });
