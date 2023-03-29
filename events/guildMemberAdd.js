@@ -2,7 +2,7 @@ const { EmbedBuilder, Events } = require('discord.js');
 
 module.exports = {
     name: Events.GuildMemberAdd,
-    execute: async (member) => {
+    execute: async (client, member) => {
         const embed = new EmbedBuilder()
             .setColor(Config.color)
             .setAuthor({ name: member.guild.name })
