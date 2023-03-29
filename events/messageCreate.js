@@ -6,7 +6,7 @@ module.exports = {
     execute: (client, message) => {
         if (message.author.bot) return;
 
-        const prefixMention = new RegExp(`^<@!?${client.user.id}> `);
+        const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
         const rawContent = message.content.toLowerCase();
 
         const prefix = rawContent.match(prefixMention) ? rawContent.match(prefixMention)[0] : Config.prefix;
