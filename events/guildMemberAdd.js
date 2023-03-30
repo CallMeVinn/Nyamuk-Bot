@@ -27,7 +27,7 @@ module.exports = {
             .setColor(Config.color)
             .setAuthor({ name: username, iconURL: member.user.displayAvatarURL({ dynamic: true }) })
             .setTitle("𝐖𝐄𝐋𝐂𝐎𝐌𝐄 𝐓𝐎 𝐒𝐀𝐑𝐀𝐍𝐆 𝐍𝐘𝐀𝐌𝐔𝐊")
-            .setDescription(`Selamat bergabung menjadi keluarga baru kami. Kamu member ke **${member.guild.memberCount}** di server ini.`)
+            .setDescription(`Selamat bergabung menjadi keluarga baru kami.`)
             .addFields({
                 name: 'Verifikasi ⁉️',
                 value:`> Baca: <#${Config.channels.rules}>\n> Isi Biodata: <#${Config.channels.biodata}>`

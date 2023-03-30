@@ -7,8 +7,7 @@ module.exports = {
     execute: function(client) {
         client.user.setActivity({
             name: "Sarang Nyamuk",
-            url: Config.serverLink,
-            type: ActivityType.Streaming
+            type: ActivityType.Watching
         });
 
         console.log(`[ClientReady] Logged in as ${client.user.tag}`);
